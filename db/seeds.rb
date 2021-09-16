@@ -6,13 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-#Tutor.destroy_all
+Tutor.destroy_all
 
-#5.times do
-    #Tutor.create(name:Faker::Name.name)
-#end
+5.times do
+    Tutor.create(name:Faker::Name.name)
+end
 
-#puts "Tutors seeded"
+puts "Tutors seeded"
 
 #Student.destroy_all
 
