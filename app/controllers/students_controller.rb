@@ -1,4 +1,6 @@
 class StudentsController < ApplicationController
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+
     def index
         students = Student.all
         render json: students, only: [:id, :name, :grade]
@@ -33,6 +35,11 @@ class StudentsController < ApplicationController
 
     def student_params
         params.permit(:name, :grade)
+    end
+
+    def render_not_found_response
+        render json: { error: "Student not found" },
+        status: :not_found
     end
 
 end

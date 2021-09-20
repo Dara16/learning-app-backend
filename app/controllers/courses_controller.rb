@@ -1,6 +1,16 @@
 class CoursesController < ApplicationController
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+
     def index
-        courses = Course.all
+        if params[:tutor_id]
+            tutor = Tutor.find(params[:tutor_id])
+            courses = tutor.courses
+        elsif params[:student_id]
+            student = Student.find(params[:student_id])
+            courses = Student.courses
+        else
+            courses = Course.all
+        end
         render json: courses, except: [:created_at, :updated_at]
     end
 
@@ -33,6 +43,11 @@ class CoursesController < ApplicationController
 
     def course_params
         params.permit(:title, :content, :likes, :student_id, :tutor_id)
+    end
+
+    def render_not_found_response
+        render json: {error: "Course not found "},
+        status: :not_found
     end
 
 end

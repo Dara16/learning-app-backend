@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  resources :courses
-  resources :students
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :tutors
+  resources :courses do
+    resources :tutors
+  end
+
+  resources :students do
+    resources :courses
+  end
+  
+  resources :tutors 
 end
